@@ -1,0 +1,15 @@
+name: EntityList
+main: crafters.dk.plugins.EntityList.EntityListPlugin
+version: 1.2.1
+commands:
+  le:
+    description: Save all entities to file. If limit then only chunks with 
+    usage: /<command> [limit] [filename]
+description: Output all entities to a file to easy check for entity spam.
+authors:
+  - julemand101@gmail.com
+
+permissions:
+    entitylist.allowcommand:
+        description: Allow the user to use the EntityList command /le
+        default: false
