@@ -43,7 +43,7 @@ public class EntityListPlugin extends JavaPlugin {
 		if (sender instanceof Player){
 			player = Player.class.cast(sender);
 			
-			// Sørger for kun dem med "entitylist.allowcommand" kan bruge kommandoen
+			// SÃ¸rger for kun dem med "entitylist.allowcommand" kan bruge kommandoen
 			if (!player.hasPermission("entitylist.allowcommand")) {
 				sender.sendMessage("Du har ikke lov til at bruge denne kommando.");
 				return true;
@@ -55,7 +55,7 @@ public class EntityListPlugin extends JavaPlugin {
 			String filename;
 			int limit = 0;
 
-			// Hvis der er angivet et tal som første argument skal vi bruge det til at vise kun chuncks med færre entities end dette nummer.
+			// Hvis der er angivet et tal som fÃ¸rste argument skal vi bruge det til at vise kun chuncks med fÃ¦rre entities end dette nummer.
 			if (args.length > 0) {
 				try {
 					limit = Integer.parseInt(args[0]);
@@ -77,7 +77,7 @@ public class EntityListPlugin extends JavaPlugin {
 				filename = new Date().getTime() + ".log";
 			}
 
-			// Tjek efter om mappen vi ønsker at gemme i allerede findes og hvis ikke så lav den.
+			// Tjek efter om mappen vi Ã¸nsker at gemme i allerede findes og hvis ikke sÃ¥ lav den.
 			if (getDataFolder().exists() == false) {
 				if (getDataFolder().mkdir() == false) {
 					sender.sendMessage("Could not create dir: " + getDataFolder().getAbsolutePath());
@@ -85,7 +85,7 @@ public class EntityListPlugin extends JavaPlugin {
 				}
 			}
 
-			// Tjek om der allerede findes en fil med det navn og hvis der gør så lad vær med at gemme noget i den.
+			// Tjek om der allerede findes en fil med det navn og hvis der gÃ¸r sÃ¥ lad vÃ¦r med at gemme noget i den.
 			File entityfile = new File(getDataFolder(), filename);
 			if (entityfile.exists()) {
 				sender.sendMessage("Filen \"" + filename + "\" eksisterer allerede og kan derfor ikke oprettes.");
@@ -97,7 +97,7 @@ public class EntityListPlugin extends JavaPlugin {
 				FileWriter fstream = new FileWriter(entityfile);
 				BufferedWriter out = new BufferedWriter(fstream);
 
-				// Sør for at sorterer worlds efter hvor mange entities der er (flest = først)
+				// SÃ¸r for at sorterer worlds efter hvor mange entities der er (flest = fÃ¸rst)
 				List<World> worldList = Bukkit.getWorlds();
 				Collections.sort(worldList, new WorldComparator());
 
@@ -115,7 +115,7 @@ public class EntityListPlugin extends JavaPlugin {
 
 					out.write("Entities for world: " + world.getName() + "\n");
 
-					// Find alle entities i den valgte world og gem dem sammen med den chunk hver entity tilhører
+					// Find alle entities i den valgte world og gem dem sammen med den chunk hver entity tilhÃ¸rer
 					for (Entity entity : world.getEntities()) {
 						Chunk currentChunk = entity.getLocation().getChunk();
 
@@ -126,17 +126,17 @@ public class EntityListPlugin extends JavaPlugin {
 						chunkMap.get(currentChunk).add(entity);
 					}
 
-					// Sortering efter chunks størrelse således at de chunks med flest entities bliver listet først
+					// Sortering efter chunks stÃ¸rrelse sÃ¥ledes at de chunks med flest entities bliver listet fÃ¸rst
 					ChunkEntityArrayListComparable compare = new ChunkEntityArrayListComparable(chunkMap);
 					TreeMap<Chunk, ArrayList<Entity>> sorted_map = new TreeMap<Chunk, ArrayList<Entity>>(compare);
 					sorted_map.putAll(chunkMap);
 
-					// Udskriv til fil hver chunk med tilhørende entities
+					// Udskriv til fil hver chunk med tilhÃ¸rende entities
 					for (Chunk chunk : sorted_map.keySet()) {
 						if (chunk.getEntities().length >= limit) {
 							out.write("\n\tEntities for chunk: x = " + chunk.getX() + " z = " + chunk.getZ() + " (total: " + chunkMap.get(chunk).size() + ")\n");
 
-							// Sorter listen med entities således den type der er flest af står først
+							// Sorter listen med entities sÃ¥ledes den type der er flest af stÃ¥r fÃ¸rst
 							sortList(chunkMap.get(chunk));
 
 							for (Entity entity : chunkMap.get(chunk)) {
@@ -163,7 +163,7 @@ public class EntityListPlugin extends JavaPlugin {
 	}
 
 	/**
-	 * Gør det muligt at sammenligne worlds således at en world med flest entities kommer først.
+	 * GÃ¸r det muligt at sammenligne worlds sÃ¥ledes at en world med flest entities kommer fÃ¸rst.
 	 * 
 	 * @author Jacob
 	 */
@@ -182,7 +182,7 @@ public class EntityListPlugin extends JavaPlugin {
 
 	/**
 	 * Returner en string der inholder alle koordianterne omkring en parantes som fx (1 2 3) for x: 1, y:2, z:3
-	 * Formatet er valgt for at gøre det nemt at bruge det sammen med fx /tppos kommandoen.
+	 * Formatet er valgt for at gÃ¸re det nemt at bruge det sammen med fx /tppos kommandoen.
 	 * 
 	 * @param location Et location object der angiver lokationen som der skal henvises til.
 	 * @return En string med alle koordinaterne som (x y z)
@@ -192,19 +192,19 @@ public class EntityListPlugin extends JavaPlugin {
 	}
 
 	/**
-	 * Sørger for at den valgte streng fylder bredden "width". Hvis den ikke gør vil der blive tilføjet " " indtil pladsen er brugt.
+	 * SÃ¸rger for at den valgte streng fylder bredden "width". Hvis den ikke gÃ¸r vil der blive tilfÃ¸jet " " indtil pladsen er brugt.
 	 * 
 	 * @param string Streng der skal returneres.
-	 * @param width Bredde på strengen.
-	 * @return Returnere strengen samt et n antal mellemrum såfrem strengen ikke er "width" bred.
+	 * @param width Bredde pÃ¥ strengen.
+	 * @return Returnere strengen samt et n antal mellemrum sÃ¥frem strengen ikke er "width" bred.
 	 */
 	private static String rightPad(String string, int width) {
 		return String.format("%-" + width + "s", string).replace('0', ' ');
 	}
 
 	/**
-	 * Benyttes til at sammenligne chunks for at finde ud af hvilken chunks der skal vises "først.
-	 * Rækkefølgende er angivet således at den chunk med flest entities vil have første priotet.
+	 * Benyttes til at sammenligne chunks for at finde ud af hvilken chunks der skal vises "fÃ¸rst.
+	 * RÃ¦kkefÃ¸lgende er angivet sÃ¥ledes at den chunk med flest entities vil have fÃ¸rste priotet.
 	 * 
 	 * @author Jacob
 	 */
@@ -227,7 +227,7 @@ public class EntityListPlugin extends JavaPlugin {
 	}
 
 	/**
-	 * Sorterer listen af Entities således at den type entities der er flest af kommer til at stå først.
+	 * Sorterer listen af Entities sÃ¥ledes at den type entities der er flest af kommer til at stÃ¥ fÃ¸rst.
 	 * 
 	 * @param list ArrayList med Entity objekter der skal sorteres.
 	 */
@@ -262,8 +262,8 @@ public class EntityListPlugin extends JavaPlugin {
 	}
 
 	/**
-	 *	Bruges til at sammenligne entities og sørger for at de entities der er flest af
-	 *	vil få største priotet.
+	 *	Bruges til at sammenligne entities og sÃ¸rger for at de entities der er flest af
+	 *	vil fÃ¥ stÃ¸rste priotet.
 	 * 
 	 * @author Jacob
 	 */
