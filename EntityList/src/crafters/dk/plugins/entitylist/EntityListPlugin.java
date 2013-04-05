@@ -1,4 +1,4 @@
-package crafters.dk.plugins.EntityList;
+package crafters.dk.plugins.entitylist;
 
 import java.io.BufferedWriter;
 import java.io.File;
