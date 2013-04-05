@@ -42,14 +42,12 @@ public class EntityListPlugin extends JavaPlugin {
 		Player player;
 		if (sender instanceof Player){
 			player = Player.class.cast(sender);
-		}else{
-			return false;
-		}
-
-		// Sørger for kun dem med "entitylist.allowcommand" kan bruge kommandoen
-		if (!player.hasPermission("entitylist.allowcommand")) {
-			sender.sendMessage("Du har ikke lov til at bruge denne kommando.");
-			return true;
+			
+			// Sørger for kun dem med "entitylist.allowcommand" kan bruge kommandoen
+			if (!player.hasPermission("entitylist.allowcommand")) {
+				sender.sendMessage("Du har ikke lov til at bruge denne kommando.");
+				return true;
+			}
 		}
 
 		// Tjek om kommandoen der bliver kaldt er "le" som er den vi lytter efter
