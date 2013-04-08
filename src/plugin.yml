@@ -1,5 +1,5 @@
 name: EntityList
-main: crafters.dk.plugins.EntityList.EntityListPlugin
+main: crafters.dk.plugins.entitylist.EntityListPlugin
 version: 1.2.1
 commands:
   le:
