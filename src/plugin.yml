@@ -1,6 +1,6 @@
 name: EntityList
 main: crafters.dk.plugins.entitylist.EntityListPlugin
-version: 1.2.1
+version: 1.2.2
 commands:
   le:
     description: Save all entities to file. If limit then only chunks with 
